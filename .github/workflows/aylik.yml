@@ -1,0 +1,48 @@
+name: Aylık güncelleme
+
+on:
+  schedule:
+    - cron: "0 6 3 * *"    # her ayın 3'ü, Wikimedia aylık veriyi yayımladıktan sonra
+    - cron: "0 6 8 * *"    # gecikme olursa diye ikinci deneme
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aylik
+  cancel-in-progress: false
+
+jobs:
+  guncelle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Bağımlılıklar ve testler
+        run: |
+          pip install -q -r requirements.txt pytest
+          python -m pytest -q testler
+
+      - name: Dizi listesini tazele, yeni ayı çek, siteyi üret
+        working-directory: betikler
+        env:
+          PYTHONUTF8: "1"
+        run: python uret.py
+
+      - name: Depoya yaz
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add veri site/veri
+          if git diff --cached --quiet; then
+            echo "değişiklik yok"
+          else
+            git commit -m "Veri: $(python -c 'import json;print(json.load(open("site/veri/ozet.json"))["guncel"])')"
+            git push
+          fi

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Türk dizileri dünyada</title>
+<meta name="description" content="Türk dizilerinin Vikipedi maddeleri hangi dillerde, ne zaman okundu? 2015'ten bu yana aylık Wikimedia okuma verisi.">
+<meta property="og:title" content="Türk dizileri dünyada">
+<meta property="og:description" content="Türk dizilerinin Vikipedi maddeleri hangi dillerde, ne zaman okundu?">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+<main>
+  <header class="bas">
+    <p class="ust">Vikipedi okumalarıyla, 2015'ten bugüne</p>
+    <h1>Türk dizileri dünyada</h1>
+    <p class="giris">Türk dizilerinin Vikipedi maddeleri hangi dillerde, ne zaman okunmaya başladı?</p>
+    <div class="rakamlar" id="rakamlar" aria-live="polite"></div>
+    <p class="uyari"><strong>Bu bir izlenme sayısı değildir.</strong> Gösterdiğimiz şey, insanların bir dizinin Vikipedi sayfasını kaç kez açtığı: merakın kaba bir göstergesi. Reyting, izleyici sayısı ya da satış hakkında bir şey söylemez.</p>
+  </header>
+
+  <section id="diller-bolum">
+    <h2>Hangi dil ne kadar okuyor?</h2>
+    <p class="aciklama">Her dilin Vikipedi'sinde, okunan her 1 milyon sayfadan kaçı bir Türk dizisi sayfası? Büyük ve küçük Vikipedileri böylece karşılaştırabiliyoruz.</p>
+    <div class="secim" role="group" aria-label="Dönem">
+      <button type="button" data-donem="12" aria-pressed="true">Son 12 ay</button>
+      <button type="button" data-donem="hep" aria-pressed="false">2015'ten beri</button>
+    </div>
+    <p class="not"><strong>Dil, ülke demek değildir.</strong> İspanyolca okuyan biri İspanya'da da Arjantin'de de olabilir; İngilizce her yerde okunur. Bölgeler, dilin en çok konuşulduğu yere göre yapılmış kaba bir gruplamadır.</p>
+    <div id="diller"></div>
+    <p class="kucuk" id="diller-not"></p>
+  </section>
+
+  <section id="dizi-bolum">
+    <h2>Bir dizi seç: hangi dil ne zaman keşfetti?</h2>
+    <p class="aciklama">Her satır bir dil. Koyu kareler, o dilde sayfanın çok okunduğu aylar. <span class="isaret-ornek" aria-hidden="true"></span> işareti, dizinin o dilde <em>keşfedildiği</em> ayı gösterir.</p>
+    <label class="etiket" for="dizi-sec">Dizi</label>
+    <select id="dizi-sec"></select>
+    <div id="dizi-ozet" class="dizi-ozet"></div>
+    <div id="zaman" class="zaman"></div>
+    <p class="kucuk" id="kesif-tanim"></p>
+  </section>
+
+  <section id="sira-bolum">
+    <h2>Her dilde en çok okunan diziler</h2>
+    <div class="satir-secim">
+      <div>
+        <label class="etiket" for="dil-sec">Dil</label>
+        <select id="dil-sec"></select>
+      </div>
+      <div class="secim" role="group" aria-label="Dönem">
+        <button type="button" data-sdonem="12" aria-pressed="true">Son 12 ay</button>
+        <button type="button" data-sdonem="hep" aria-pressed="false">2015'ten beri</button>
+      </div>
+    </div>
+    <ol id="sira" class="sira"></ol>
+  </section>
+
+  <section id="sicrama-bolum">
+    <h2>Ani sıçramalar</h2>
+    <p class="aciklama">Bir dilde okumanın, önceki 12 ayın olağan düzeyinin en az 5 katına çıktığı aylar. Her dizi–dil çifti için en büyük sıçrama; en çok okunana göre sıralı.</p>
+    <ol id="sicramalar" class="sicramalar"></ol>
+  </section>
+
+  <section id="sinirlar">
+    <h2>Bu veriler ne anlatır, ne anlatmaz?</h2>
+    <ul class="sinir">
+      <li><strong>Okuma, izlenme değildir.</strong> Bir dizinin sayfasını açan herkes onu izlemiş değildir; izleyen herkes de Vikipedi'ye bakmaz.</li>
+      <li><strong>Dil, ülke değildir.</strong> Arapça sayfa Fas'tan da Irak'tan da okunur. Ülke bilgisi bu veride yok.</li>
+      <li><strong>Yalnız Vikipedi'de maddesi olan diziler.</strong> Wikidata'da “televizyon dizisi” olarak kayıtlı, menşe ülkesi Türkiye olan ve Türkçe dışında en az iki Vikipedi'de maddesi bulunan diziler sayıldı. Maddesi yazılmamış bir dilde ilgi olsa da görünmez.</li>
+      <li><strong>Sayfa adı değişince eski okumalar kaybolabilir.</strong> Sayım, maddenin bugünkü adı üzerinden yapılır; yönlendirmelerden gelen okumalar sayılmaz.</li>
+      <li><strong>Yalnız insan okuyucular.</strong> Wikimedia'nın “user” süzgeci kullanıldı; otomatik programların çoğu ayıklanır ama hepsi değil.</li>
+      <li><strong>Veri 2015 Temmuz'da başlar.</strong> Daha önceki ilgi (örneğin 2010'ların başındaki ilk dalga) bu veride görünmez; o yıllarda keşfedilmiş bir dizi burada “2015-07” gibi görünebilir.</li>
+    </ul>
+    <p class="kucuk">Kaynak: <a href="https://wikitech.wikimedia.org/wiki/Analytics/AQS/Pageviews">Wikimedia Pageviews API</a> ve <a href="https://www.wikidata.org/">Wikidata</a> (CC0). Veri her ay kendiliğinden güncellenir. Kod: <a href="https://github.com/birtohum/turk-dizileri-dunyada">github.com/birtohum/turk-dizileri-dunyada</a> (Apache-2.0).</p>
+  </section>
+</main>
+<div id="ipucu" class="ipucu" role="tooltip" hidden></div>
+<script src="uygulama.js"></script>
+</body>
+</html>
