@@ -75,8 +75,10 @@ def yaz_gz(yol, veri):
     yol = Path(yol)
     yol.parent.mkdir(parents=True, exist_ok=True)
     gecici = yol.with_name(f"{yol.name}.{os.getpid()}.{threading.get_ident()}.tmp")
-    with gzip.open(gecici, "wt", encoding="utf-8") as f:
-        json.dump(veri, f, ensure_ascii=False, separators=(",", ":"))
+    # mtime=0 ve boş dosya adı: aynı içerik → aynı bayt (gereksiz commit olmasın)
+    metin = json.dumps(veri, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+    with open(gecici, "wb") as ham, gzip.GzipFile(filename="", mode="wb", fileobj=ham, mtime=0) as f:
+        f.write(metin.encode("utf-8"))
     gecici.replace(yol)
 
 
