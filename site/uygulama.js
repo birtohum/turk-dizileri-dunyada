@@ -71,11 +71,15 @@
     const enIlgili = yabanci.filter((d) => d.t12 >= 100000).sort((a, b) => b.ppm12 - a.ppm12)[0];
     if (enIlgili) {
       const bir = Math.round(1e6 / enIlgili.ppm12);
-      const p = el("p", "ana-bulgu");
-      p.append("Son 12 ayda ", el("strong", null, `${enIlgili.ad} Vikipedi'de okunan her ${nf.format(bir)} sayfadan biri`),
-        " bir Türk dizisinin sayfasıydı. İngilizce Vikipedi'de ise " +
-        `${nf.format(Math.round(1e6 / DIL.en.ppm12))} sayfada bir.`);
-      kut.after(p);
+      const enCokDizi = enIlgili.ilk12 && enIlgili.ilk12[0] && DIZI[enIlgili.ilk12[0][0]];
+      const m = el("div", "manset");
+      const sol = el("div", "m-sol");
+      sol.append(el("span", "m-on", "her"), el("span", "m-sayi", nf.format(bir)), el("span", "m-on", "sayfadan biri"));
+      const sag = el("div", "m-sag");
+      sag.append(el("p", "m-cumle", `Son 12 ayda ${enIlgili.ad} Vikipedi'de okunan her ${nf.format(bir)} sayfadan biri bir Türk dizisinin sayfasıydı.`));
+      sag.append(el("p", "m-alt", `İngilizce Vikipedi'de bu oran ${nf.format(Math.round(1e6 / DIL.en.ppm12))} sayfada bir.` + (enCokDizi ? ` ${enIlgili.ad} okurların en çok açtığı dizi: ${enCokDizi.ad}.` : "")));
+      m.append(sol, sag);
+      kut.before(m);
     }
   }
 
